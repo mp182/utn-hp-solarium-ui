@@ -1,0 +1,59 @@
+<div class="container">
+    <h1>
+        <span *ngIf="accion == 'nuevo'">Nuevo</span><span *ngIf="accion == 'editar'">Editar</span> insumo
+        <span class="pull-right">
+            <button mat-raised-button [routerLink]="['/solarium/insumos']">
+                <span class="material-icons">
+                    arrow_back
+                </span>
+                Volver
+            </button>
+        </span>
+    </h1>
+    <mat-divider></mat-divider>
+    <div class="mt-15">
+
+        <form [formGroup]="form" autocomplete="off">
+
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="nombre" />
+                <mat-error *ngIf="form.controls.nombre.hasError('required')">
+                    Por favor ingrese un nombre
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Descripción</mat-label>
+                <textarea matInput formControlName="descripcion"></textarea>
+                <mat-error *ngIf="form.controls.descripcion.hasError('required')">
+                    Por favor ingrese una descripción
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Stock Actual</mat-label>
+                <input matInput formControlName="stock" type="number" />
+                <mat-error *ngIf="form.controls.stock.hasError('required')">
+                    Por favor ingrese el stock actual
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Stock Mínimo</mat-label>
+                <input matInput formControlName="stock_minimo" type="number" />
+                <mat-error *ngIf="form.controls.stock_minimo.hasError('required')">
+                    Por favor ingrese el stock mínimo
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" (click)="save()" *ngIf="accion == 'nuevo'" class="pull-right">
+                Guardar
+            </button>
+            <button mat-raised-button color="primary" (click)="update()" *ngIf="accion == 'editar'" class="pull-right">
+                Actualizar
+            </button>
+        </form>
+
+    </div>
+</div>

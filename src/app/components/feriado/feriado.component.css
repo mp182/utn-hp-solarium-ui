@@ -1,0 +1,10 @@
+form {
+  width: 40%;
+}
+mat-form-field {
+  display: block;
+}
+
+.mat-form-field {
+  display: block;
+}

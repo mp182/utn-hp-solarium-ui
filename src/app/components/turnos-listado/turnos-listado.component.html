@@ -1,0 +1,76 @@
+<div class="container">
+
+    <div class="header" *ngIf="cliente; else noHayTurnos">
+        <label class="mr-10">
+            <strong>Cliente:</strong>
+            {{ this.cliente.nombre }} {{ this.cliente.apellido }}
+        </label>
+        <button mat-raised-button [routerLink]="['/solarium/client/' + this.clienteId]" class="pull-right">
+            <span class="material-icons">
+                arrow_back
+            </span>
+            Volver
+        </button>
+    </div>
+
+    <ng-template #noHayTurnos>
+        <div>
+            <button mat-raised-button [routerLink]="['/solarium/client/' + this.clienteId]" class="mb-15">
+                <span class="material-icons">
+                    arrow_back
+                </span>
+                Volver
+            </button>
+        </div>
+        <mat-card>
+            <mat-card-content class="flex-container">
+                <span class="material-icons">
+                    clear
+                </span>
+                <span>Este cliente no tiene turnos. </span>
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
+
+    <mat-divider></mat-divider>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="fecha_turno">
+            <th mat-header-cell *matHeaderCellDef> Fecha </th>
+            <td mat-cell *matCellDef="let element"> {{ element.fecha_turno | date:'short' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="turno_concretado">
+            <th mat-header-cell *matHeaderCellDef> Concretado </th>
+            <td mat-cell *matCellDef="let element">
+                <span *ngIf="element.turno_concretado" class="material-icons verified green"> verified </span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="servicio">
+            <th mat-header-cell *matHeaderCellDef> Servicio </th>
+            <td mat-cell *matCellDef="let element"> {{ element.servicio.nombre }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+                <ng-container *ngIf="!element.turno_concretado">
+                    <button mat-mini-fab color="primary" (click)="validar(element.id)">
+                        <mat-icon> done </mat-icon>
+                    </button>
+                    <button mat-mini-fab color="warn" (click)="eliminar(element.id)">
+                        <mat-icon> clear </mat-icon>
+                    </button>
+                </ng-container>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+</div>

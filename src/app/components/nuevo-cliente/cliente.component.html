@@ -1,0 +1,101 @@
+<div class="container">
+    <h1>
+        <span *ngIf="accion == 'nuevo'">
+            Nuevo
+            <span class="pull-right">
+                <button mat-raised-button [routerLink]="['/solarium/search-client']">
+                    <span class="material-icons">
+                        arrow_back
+                    </span>
+                    Volver
+                </button>
+            </span>
+        </span>
+        <span *ngIf="accion == 'editar'">
+            Editar
+            <span class="pull-right">
+                <button mat-raised-button [routerLink]="['/solarium/client/' + this.itemId]">
+                    <span class="material-icons">
+                        arrow_back
+                    </span>
+                    Volver
+                </button>
+            </span>
+        </span> cliente
+    </h1>
+    <mat-divider></mat-divider>
+    <div class="mt-15">
+
+        <form [formGroup]="form" autocomplete="off">
+
+            <mat-form-field>
+                <mat-label>DNI</mat-label>
+                <input matInput formControlName="dni" type="number" (blur)="comprobarDNI(form.controls.dni.value)" />
+                <mat-error *ngIf="form.controls.dni.hasError('required')">
+                    Por favor ingrese DNI
+                </mat-error>
+                <mat-error *ngIf="form.controls.dni.hasError('dni_existe')">
+                    Ya hay un cliente registrado con ese DNI
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="nombre" />
+                <mat-error *ngIf="form.controls.nombre.hasError('required')">
+                    Por favor ingrese un nombre
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Apellido</mat-label>
+                <input matInput formControlName="apellido" />
+                <mat-error *ngIf="form.controls.apellido.hasError('required')">
+                    Por favor ingrese un apellido
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Domicilio</mat-label>
+                <input matInput formControlName="domicilio" />
+                <mat-error *ngIf="form.controls.domicilio.hasError('required')">
+                    Por favor ingrese un domicilio
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="fecha_nacimiento">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+                <mat-error *ngIf="form.controls.fecha_nacimiento.hasError('required')">
+                    Por favor ingrese una fecha
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Teléfono</mat-label>
+                <input matInput formControlName="telefono" />
+                <mat-error *ngIf="form.controls.telefono.hasError('required')">
+                    Por favor ingrese un teléfono
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" type="email" />
+                <mat-error *ngIf="form.controls.email.hasError('required')">
+                    Por favor ingrese un email
+                </mat-error>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" (click)="save()" *ngIf="accion == 'nuevo'" class="pull-right">
+                Guardar
+            </button>
+            <button mat-raised-button color="primary" (click)="update()" *ngIf="accion == 'editar'" class="pull-right">
+                Actualizar
+            </button>
+        </form>
+
+    </div>
+</div>

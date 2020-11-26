@@ -1,0 +1,43 @@
+<div class="container" *ngIf="insumos$ | async as insumos">
+    <a [routerLink]="['/solarium/insumo']">
+        <button mat-raised-button color="primary">
+            <mat-icon>add_box</mat-icon> Insumo
+        </button>
+    </a>
+    <table mat-table [dataSource]="insumos$" class="mat-elevation-z8">
+        <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef> Descripción </th>
+            <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="stock">
+            <th mat-header-cell *matHeaderCellDef> Stock </th>
+            <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="stock_minimo">
+            <th mat-header-cell *matHeaderCellDef> Stock Mínimo </th>
+            <td mat-cell *matCellDef="let element"> {{element.stock_minimo}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-mini-fab color="primary" [routerLink]="['/solarium/insumo' , element.id]">
+                    <mat-icon> edit </mat-icon>
+                </button>
+                <button mat-mini-fab color="primary" (click)="eliminar(element.id)">
+                    <mat-icon> delete </mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+</div>

@@ -1,0 +1,45 @@
+<div class="container">
+    <h1>
+        Editar horarios
+        <span class="pull-right">
+            <button mat-raised-button [routerLink]="['/solarium/configuraciones']">
+                <span class="material-icons">
+                    arrow_back
+                </span>
+                Volver
+            </button>
+        </span>
+    </h1>
+    <mat-divider></mat-divider>
+    <div class="mt-15">
+
+        <form [formGroup]="form" autocomplete="off">
+            <div formArrayName="horarios">
+                <div class="horario-container" *ngFor="let item of dias">
+                    <mat-checkbox #check class="horario-item" color="primary"
+                        (click)="addOrRemove(item, desde.time, hasta.time)" [checked]="item.check">
+                    </mat-checkbox>
+                    <label class="horario-item horario-nombre"
+                        [ngClass]="{disable: !check.checked}">{{ item.nombre }}</label>
+                    <mat-form-field class="horario-item">
+                        <mat-label>Apertura</mat-label>
+                        <input matInput [ngxTimepicker]="desde" [format]="24" readonly [disabled]="!check.checked"
+                            [value]="item.horario_apertura" (blur)="updateHorario(item, desde.time, hasta.time)">
+                        <ngx-material-timepicker #desde></ngx-material-timepicker>
+                    </mat-form-field>
+                    <mat-form-field class="horario-item">
+                        <mat-label>Cierre</mat-label>
+                        <input matInput [ngxTimepicker]="hasta" [format]="24" readonly [disabled]="!check.checked"
+                            [value]="item.horario_cierre" (blur)="updateHorario(item, desde.time, hasta.time)">
+                        <ngx-material-timepicker #hasta></ngx-material-timepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <button mat-raised-button color="primary" (click)="update()" class="pull-right">
+                Actualizar
+            </button>
+        </form>
+
+    </div>
+</div>

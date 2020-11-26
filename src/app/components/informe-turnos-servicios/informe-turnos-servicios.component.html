@@ -1,0 +1,52 @@
+<div class="container">
+  <h2>
+    Informe - Cantidad de turnos por servicio
+    <span class="pull-right">
+      <button mat-raised-button [routerLink]="['/solarium/informes']">
+        <span class="material-icons">
+          arrow_back
+        </span>
+        Volver
+      </button>
+    </span>
+  </h2>
+  <mat-divider></mat-divider>
+  <mat-card class="mt-15">
+    <mat-card-header>
+      <mat-card-title>Filtros</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form">
+        <mat-form-field>
+          <mat-label>Desde</mat-label>
+          <input matInput [matDatepicker]="desde" formControlName="desde">
+          <mat-datepicker-toggle matSuffix [for]="desde"></mat-datepicker-toggle>
+          <mat-datepicker #desde></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Hasta</mat-label>
+          <input matInput [matDatepicker]="hasta" formControlName="hasta">
+          <mat-datepicker-toggle matSuffix [for]="hasta"></mat-datepicker-toggle>
+          <mat-datepicker #hasta></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Servicios</mat-label>
+          <mat-select multiple formControlName="servicios">
+            <mat-option *ngFor="let servicio of servicios" value="{{ servicio.id }}">
+              {{ servicio.nombre }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-flat-button color="primary" (click)="filtrar()">Filtrar</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="chart-container" *ngIf="barChartData">
+    <div style="display: block">
+      <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+        [legend]="barChartLegend" [chartType]="barChartType">
+      </canvas>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="flex-container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Iniciar Sesión</mat-card-title>
+                <mat-card-subtitle>HP Solarium</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Usuario</mat-label>
+                        <input matInput autocomplete="off" required formControlName="user">
+                        <mat-icon matPrefix>account_circle</mat-icon>
+                        <mat-error *ngIf="loginForm.controls.user.hasError('required')">
+                            Debe ingresar un usuario para continuar.
+                        </mat-error>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline" class="full-width">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput autocomplete="off" type="password" required formControlName="password">
+                        <mat-icon matPrefix>lock</mat-icon>
+                        <mat-error *ngIf="loginForm.controls.password.hasError('required')">
+                            Debe ingresar una contraseña para continuar.
+                        </mat-error>
+                    </mat-form-field>
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-flat-button color="primary" class="full-width" type="submit"
+                    [disabled]="!loginForm.valid">Ingresar</button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>

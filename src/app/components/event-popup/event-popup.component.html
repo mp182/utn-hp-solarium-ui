@@ -1,0 +1,61 @@
+<div *ngIf="!data.soloVerDatos">
+    <h2 mat-dialog-title>Reservar Turno</h2>
+    <mat-dialog-content>
+        <p>
+            <span class="material-icons vertical-align-middle mr-5">
+                watch_later
+            </span>
+            {{ this.data.event | date:'short' }} Hs.
+        </p>
+        <p>
+            <span class="material-icons vertical-align-middle mr-5">
+                person
+            </span>
+            {{ this.data.cliente.apellido }} {{ this.data.cliente.nombre }}
+        </p>
+        <p>
+            <span class="material-icons vertical-align-middle mr-5">
+                scanner
+            </span>
+            {{ this.data.servicio.nombre }}
+        </p>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-stroked-button mat-dialog-close>Cancelar</button>
+        <button mat-flat-button color="primary" (click)="guardar()" cdkFocusInitial>Guardar</button>
+    </mat-dialog-actions>
+</div>
+
+<div *ngIf="data.soloVerDatos">
+    <h2 mat-dialog-title>
+        Turno Reservado
+        <span *ngIf="data.concretado" class="material-icons verified"> verified </span>
+    </h2>
+    <mat-dialog-content>
+        <p>
+            <span class="material-icons vertical-align-middle mr-5">
+                watch_later
+            </span>
+            {{ this.data.event | date:'short' }} Hs.
+        </p>
+        <p>
+            <span class="material-icons vertical-align-middle mr-5">
+                person
+            </span>
+            {{ this.data.cliente.apellido }} {{ this.data.cliente.nombre }}
+        </p>
+        <p>
+            <span class="material-icons vertical-align-middle mr-5">
+                scanner
+            </span>
+            {{ this.data.servicio.nombre }}
+        </p>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-stroked-button mat-dialog-close>Cerrar</button>
+        <ng-container *ngIf="!data.concretado">
+            <button mat-flat-button color="primary" (click)="validar()">Validar Turno</button>
+            <button mat-flat-button color="warn" (click)="eliminar()">Eliminar</button>
+        </ng-container>
+    </mat-dialog-actions>
+</div>

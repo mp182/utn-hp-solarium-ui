@@ -1,0 +1,69 @@
+<div class="container">
+    <h1>
+        <span *ngIf="accion == 'nuevo'">Nuevo</span><span *ngIf="accion == 'editar'">Editar</span> usuario
+        <span class="pull-right">
+            <button mat-raised-button [routerLink]="['/solarium/usuarios']">
+                <span class="material-icons">
+                    arrow_back
+                </span>
+                Volver
+            </button>
+        </span>
+    </h1>
+    <mat-divider></mat-divider>
+    <div class="mt-15">
+
+        <form [formGroup]="form" autocomplete="off">
+
+            <mat-form-field>
+                <mat-label>Usuario</mat-label>
+                <input matInput formControlName="usuario" (blur)="comprobarUsuario(form.controls.usuario.value)" />
+                <mat-error *ngIf="form.controls.usuario.hasError('required')">
+                    Por favor ingrese un usuario
+                </mat-error>
+                <mat-error *ngIf="form.controls.usuario.hasError('usuario_existe')">
+                    Ese usuario ya está registrado
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Contraseña</mat-label>
+                <input matInput formControlName="password" type="password" />
+                <mat-error *ngIf="form.controls.password.hasError('required')">
+                    Por favor ingrese una contraseña
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Rol</mat-label>
+                <mat-select formControlName="id_rol" name="id_rol">
+                    <mat-option class="limpiarSelect">❌ Limpiar</mat-option>
+                    <mat-option *ngFor="let rol of roles" [value]="rol.id">
+                        {{ rol.nombre }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.controls.id_rol.hasError('required')">
+                    Por favor seleccione un rol
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Empleado</mat-label>
+                <mat-select formControlName="id_personal" name="id_personal">
+                    <mat-option class="limpiarSelect">❌ Limpiar</mat-option>
+                    <mat-option *ngFor="let empleado of (empleados$ | async)" [value]="empleado.id">
+                        {{ empleado.nombre }} {{ empleado.apellido }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" (click)="save()" *ngIf="accion == 'nuevo'" class="pull-right">
+                Guardar
+            </button>
+            <button mat-raised-button color="primary" (click)="update()" *ngIf="accion == 'editar'" class="pull-right">
+                Actualizar
+            </button>
+        </form>
+
+    </div>
+</div>

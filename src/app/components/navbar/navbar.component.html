@@ -1,0 +1,49 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menú</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="calendario" routerLinkActive="active">Calendario</a>
+      <a mat-list-item routerLink="configuraciones" routerLinkActive="active" *appHasPermission="'configuraciones'">Configuraciones</a>
+      <a mat-list-item routerLink="search-client" routerLinkActive="active">Clientes</a>
+      <a mat-list-item routerLink="empleados" routerLinkActive="active" *appHasPermission="'empleados'">Empleados</a>
+      <a mat-list-item routerLink="informes" routerLinkActive="active" *appHasPermission="'informes'">Informes</a>
+      <a mat-list-item routerLink="insumos" routerLinkActive="active">Insumos</a>
+      <a mat-list-item routerLink="maquinas" routerLinkActive="active">Máquinas</a>
+      <a mat-list-item routerLink="servicios" routerLinkActive="active">Servicios</a>
+      <a mat-list-item routerLink="usuarios" routerLinkActive="active" *appHasPermission="'usuarios'">Usuarios</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>☀ HP Solarium</span>
+      <span class="spacer"></span>
+      <span>{{ usuario?.personal?.nombre }} </span>
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" class="ml-5">
+        <mat-icon>account_box</mat-icon>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item (click)="cambiarPassword()">
+          <mat-icon>lock</mat-icon>
+          <span>Cambiar Contraseña</span>
+        </button>
+        <button mat-menu-item (click)="cerrarSesion()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Cerrar Sesión</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

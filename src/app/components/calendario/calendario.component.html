@@ -1,0 +1,37 @@
+<div class="ml-15">
+    <ng-container *ngIf="this.cliente">
+        <label class="mr-10">
+            <strong>Cliente:</strong>
+            {{ this.cliente.nombre }} {{ this.cliente.apellido }}
+        </label>
+        <span class="pull-right mt-10 mr-10">
+            <button mat-raised-button [routerLink]="['/solarium/client/' + this.cliente.id]">
+                <span class="material-icons">
+                    arrow_back
+                </span>
+                Volver
+            </button>
+        </span>
+    </ng-container>
+    <label class="mr-10">
+        <strong>Servicio:</strong>
+    </label>
+    <mat-form-field>
+        <mat-select [(value)]="servicioSelected" (selectionChange)="selectionChange()">
+            <mat-option *ngFor="let servicio of servicios$ | async" [value]="servicio.id">
+                {{ servicio.nombre }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="calendar-wrapper" *ngIf="this.events">
+    <full-calendar [plugins]="calendarPlugins" [locale]="locale" timeZone="America/Argentina/Buenos_Aires"
+        [fixedWeekCount]="false" defaultView="timeGridWeek" [header]="calendarHeader" [events]="events"
+        slotDuration="00:30" height="parent" [minTime]="horaApertura" [maxTime]="horaCierre" deepChangeDetection="true"
+        (dateClick)="handleDateClick($event)" (eventClick)="handleEventClick($event)" [allDaySlot]="false"
+        [hiddenDays]="hiddenDays" [businessHours]="businessHours">
+    </full-calendar>
+</div>

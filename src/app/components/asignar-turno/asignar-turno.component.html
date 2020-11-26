@@ -1,0 +1,13 @@
+<span class="mr-15"><strong>Elegir Servicio:</strong></span>
+<mat-form-field>
+    <mat-label>Servicio</mat-label>
+    <mat-select [formControl]="servicioControl">
+        <mat-option>-- Ninguno --</mat-option>
+        <mat-option *ngFor="let servicio of servicios$ | async" [value]="servicio.id">
+            {{ servicio.nombre }}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<button class="ml-15" mat-raised-button (click)="verTurnos()" [disabled]="!this.servicioControl.valid">
+    <span class="material-icons"> calendar_view_day </span> Calendario
+</button>

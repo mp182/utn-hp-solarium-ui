@@ -1,0 +1,87 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@fullcalendar/core/main.css";
+@import "~@fullcalendar/daygrid/main.css";
+@import "~@fullcalendar/timegrid/main.css";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.flex-container {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  margin: 15px !important;
+}
+
+.mt-15 {
+  margin-top: 15px !important;
+}
+
+.mr-15 {
+  margin-right: 15px !important;
+}
+
+.mr-10 {
+  margin-right: 10px !important;
+}
+
+.mt-10 {
+  margin-top: 10px !important;
+}
+
+.mt-5 {
+  margin-top: 5px !important;
+}
+
+.mr-5 {
+  margin-right: 5px !important;
+}
+
+.ml-15 {
+  margin-left: 15px !important;
+}
+
+.ml-5 {
+  margin-left: 5px !important;
+}
+
+.mb-15 {
+  margin-bottom: 15px !important;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.vertical-align-middle {
+  vertical-align: middle;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.pull-left {
+  float: left;
+}
+.pull-right {
+  float: right;
+}
+.eventoNoLaboral{
+  left: 0% !important;
+}
+.eventoNoLaboral .fc-time {
+  display: none;
+}

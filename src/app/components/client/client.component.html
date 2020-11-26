@@ -1,0 +1,60 @@
+<div class="container" *ngIf="cliente$ | async as cliente">
+    <h1>
+        Cliente
+        <span class="pull-right">
+            <button mat-raised-button [routerLink]="['/solarium/search-client']">
+                <span class="material-icons">
+                    arrow_back
+                </span>
+                Volver
+            </button>
+        </span>
+    </h1>
+    <mat-divider></mat-divider>
+    <div class="mt-15">
+        <p>
+            <small class="mr-10">DNI</small>
+            <strong>{{ cliente.dni }}</strong>
+        </p>
+        <p>
+            <small class="mr-10">Apellido y Nombre</small>
+            <strong>{{ cliente.apellido }} {{ cliente.nombre }}</strong>
+        </p>
+        <p>
+            <small class="mr-10">Fecha de Nacimiento</small>
+            <strong>{{ cliente.fecha_nacimiento | date }}</strong>
+        </p>
+        <p>
+            <small class="mr-10">Email</small>
+            <strong>{{ cliente.email }}</strong>
+        </p>
+        <p>
+            <small class="mr-10">Teléfono</small>
+            <strong>{{ cliente.telefono }}</strong>
+        </p>
+        <p>
+            <small class="mr-10">Domicilio</small>
+            <strong>{{ cliente.domicilio }}</strong>
+        </p>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="mt-15">
+        <span><strong>Acciones:</strong></span>
+        <button class="ml-15" mat-raised-button (click)="asignarTurno()">
+            <span class="material-icons"> event </span> Asignar Turno
+        </button>
+        <button class="ml-15" mat-raised-button [routerLink]="['/solarium/turnos', cliente.id]">
+            <span class="material-icons"> list </span> Ver Turnos
+        </button>
+        <button class="ml-15" mat-raised-button [routerLink]="['/solarium/cliente', cliente.id]">
+            <span class="material-icons"> edit </span> Editar
+        </button>
+        <button class="ml-15" mat-raised-button (click)="eliminar(cliente.id)">
+            <span class="material-icons"> delete </span> Eliminar
+        </button>
+    </div>
+    <div class="mt-15" *ngIf="isAsignarTurno">
+        <mat-divider></mat-divider>
+        <app-asignar-turno [clientId]="this.clientId"></app-asignar-turno>
+    </div>
+</div>

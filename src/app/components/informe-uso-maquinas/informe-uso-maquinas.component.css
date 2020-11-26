@@ -1,0 +1,14 @@
+.chart-container {
+  padding: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+mat-card {
+  text-align: center;
+}
+
+mat-form-field {
+  margin-left: 8px;
+  margin-right: 8px;
+}

@@ -1,0 +1,98 @@
+<div class="container">
+    <h1>
+        <span *ngIf="accion == 'nuevo'">Nuevo</span><span *ngIf="accion == 'editar'">Editar</span> servicio
+        <span class="pull-right">
+            <button mat-raised-button [routerLink]="['/solarium/servicios']">
+                <span class="material-icons">
+                    arrow_back
+                </span>
+                Volver
+            </button>
+        </span>
+    </h1>
+    <mat-divider></mat-divider>
+    <div class="mt-15">
+
+        <form [formGroup]="form" autocomplete="off">
+
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="nombre" />
+                <mat-error *ngIf="form.controls.nombre.hasError('required')">
+                    Por favor ingrese un nombre
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Descripción</mat-label>
+                <textarea matInput formControlName="descripcion"></textarea>
+                <mat-error *ngIf="form.controls.descripcion.hasError('required')">
+                    Por favor ingrese una descripción
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Máquina</mat-label>
+                <mat-select formControlName="id_maquina" name="id_maquina">
+                    <mat-option class="limpiarSelect">❌ Limpiar</mat-option>
+                    <mat-option *ngFor="let maquina of maquinas$ | async" [value]="maquina.id">
+                        {{ maquina.nombre }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Profesional</mat-label>
+                <mat-select formControlName="id_personal" name="id_personal">
+                    <mat-option class="limpiarSelect">❌ Limpiar</mat-option>
+                    <mat-option *ngFor="let profesional of empleados$ | async" [value]="profesional.id">
+                        {{ profesional.nombre }} {{ profesional.apellido }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <h3>
+                Insumos
+                <button mat-mini-fab (click)="addInsumos()" color="primary">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </h3>
+
+            <ng-container formArrayName="insumos">
+                <div *ngFor="let insumoControl of insumos.controls; index as i">
+                    <ng-container [formGroupName]="i">
+                        <mat-card>
+                            <mat-form-field>
+                                <mat-label>Insumo</mat-label>
+                                <mat-select formControlName="id">
+                                    <mat-option class="limpiarSelect">❌ Limpiar</mat-option>
+                                    <mat-option *ngFor="let insumo of insumosSelect" [value]="insumo.id">
+                                        {{ insumo.nombre }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Cantidad</mat-label>
+                                <input matInput formControlName="cantidad" type="number" />
+                            </mat-form-field>
+                            <p>
+                                Quitar Insumo
+                                <button mat-mini-fab (click)="removeInsumo(i)">
+                                    <mat-icon>clear</mat-icon>
+                                </button>
+                            </p>
+                        </mat-card>
+                    </ng-container>
+                </div>
+            </ng-container>
+            <br>
+            <button mat-raised-button color="primary" (click)="save()" *ngIf="accion == 'nuevo'" class="pull-right">
+                Guardar
+            </button>
+            <button mat-raised-button color="primary" (click)="update()" *ngIf="accion == 'editar'" class="pull-right">
+                Actualizar
+            </button>
+        </form>
+
+    </div>
+</div>
